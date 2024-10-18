@@ -1,0 +1,12 @@
+<!--<?xml version="1.0" encoding="UTF-8" ?>-->
+<!--<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"-->
+<!--        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >-->
+<!--<mapper namespace="org.lu.zhaodazi.user.dao.UserMapper">-->
+<!--&lt;!&ndash;    <select id="loadUserByEmail" parameterType="java.lang.String" resultType="org.lu.zhaodazi.user.domain.entity.User">&ndash;&gt;-->
+<!--&lt;!&ndash;        select id,email,role from user where email=#{email}&ndash;&gt;-->
+<!--&lt;!&ndash;    </select>&ndash;&gt;-->
+
+<!--&lt;!&ndash;    <select id="loadUserByUsername"  parameterType="java.lang.String" resultType="org.lu.zhaodazi.user.domain.entity.User">&ndash;&gt;-->
+<!--&lt;!&ndash;        select id,email,role from user where username=#{username}&ndash;&gt;-->
+<!--&lt;!&ndash;    </select>&ndash;&gt;-->
+<!--</mapper>-->

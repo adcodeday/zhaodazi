@@ -1,0 +1,32 @@
+#logging:
+#  level:
+#    org.lu.zhaodazi.common: debug
+#    org.lu.zhaodazi.user: debug
+#    org.lu.zhaodazi.websocket: debug
+
+spring:
+  datasource:
+    druid:
+      initial-size: 3
+    password: qq2388286985
+    url: jdbc:mysql://localhost:3306/zhaodazi?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+
+mybatis:
+  mapper-locations: classpath:mappers/*.xml
+  type-aliases-package: org.lu.zhaodazi
+  configuration:
+    #开启驼峰命名
+    map-underscore-to-camel-case: true
+logging:
+  level:
+    org.lu.zhaodazi:
+      user.dao: debug
+      common.util: debug
+
+
