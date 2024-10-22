@@ -1,6 +1,7 @@
 package org.lu.zhaodazi.user.service.Impl;
 
 import lombok.extern.slf4j.Slf4j;
+import org.lu.zhaodazi.common.service.MailService;
 import org.lu.zhaodazi.common.util.RedisUtil;
 import org.lu.zhaodazi.user.domain.entity.TokenInfo;
 import org.lu.zhaodazi.user.domain.entity.User;
@@ -25,15 +26,9 @@ public class AuthServiceImpl implements AuthService {
     UserService userService;
     @Autowired
     TokenService tokenService;
+    @Autowired
+    MailService mailService;
 
-    @Override
-    public String sendVerifyCode(String email) {
-        //TODO 模拟发送
-        String s = generateRandomNumber(6);
-        RedisUtil.set("EMAIL_CODE:"+email,s,60);
-        log.info(email+"-验证码-"+s);
-        return s;
-    }
 
     @Override
     public TokenInfo login(AbstractAuthenticationToken authenticationToken) {

@@ -1,20 +1,20 @@
-#logging:
-#  level:
-#    org.lu.zhaodazi.common: debug
-#    org.lu.zhaodazi.user: debug
-#    org.lu.zhaodazi.websocket: debug
-
 spring:
+  profiles:
+    active: test
+  mail:
+    username: ${zhaodazi.email.username}
+    password: ${zhaodazi.email.password}
+    host: ${zhaodazi.email.host}
   datasource:
     druid:
       initial-size: 3
-    password: qq2388286985
-    url: jdbc:mysql://localhost:3306/zhaodazi?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
-    username: root
+    password: ${zhaodazi.mysql.password}
+    url: ${zhaodazi.mysql.url}
+    username: ${zhaodazi.mysql.username}
   data:
     redis:
-      host: localhost
-      port: 6379
+      host: ${zhaodazi.redis.host}
+      port: ${zhaodazi.redis.port}
 
 
 mybatis:

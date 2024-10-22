@@ -19,7 +19,7 @@ public class GlobalExceptionHandler {
      * @return
      */
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(value = ConstraintViolationException.class)
+    @ExceptionHandler(ConstraintViolationException.class)
     public ApiResult<?> constraintViolationException(ConstraintViolationException e){
         String message = e.getMessage();
         log.info("参数有效性检查未通过：{}",message);
@@ -27,9 +27,8 @@ public class GlobalExceptionHandler {
 
     }
 
-    @ExceptionHandler(value = CommonException.class)
+    @ExceptionHandler(CommonException.class)
     public ApiResult<?> commonException(CommonException e){
-        StringBuilder errorMsg = new StringBuilder();
         String message =e.getMessage();
         log.info(message);
         return ApiResult.fail(AuthErrorEnum.EMAIL_LOGIN_ERROR.getCode(),message);

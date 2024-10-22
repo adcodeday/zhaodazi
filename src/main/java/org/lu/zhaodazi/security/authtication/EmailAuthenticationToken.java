@@ -1,11 +1,9 @@
-package org.lu.zhaodazi.user.security.authtication;
+package org.lu.zhaodazi.security.authtication;
 
 import org.lu.zhaodazi.user.domain.entity.User;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import java.util.Collection;
 public class EmailAuthenticationToken extends AbstractAuthenticationToken {
     private Object principal;

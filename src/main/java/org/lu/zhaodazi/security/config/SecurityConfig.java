@@ -1,6 +1,6 @@
-package org.lu.zhaodazi.user.security.config;
+package org.lu.zhaodazi.security.config;
 
-import org.lu.zhaodazi.user.security.provider.EmailAuthenticationProvider;
+import org.lu.zhaodazi.security.provider.EmailAuthenticationProvider;
 import org.lu.zhaodazi.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -26,7 +26,6 @@ public class SecurityConfig {
     UserService userService;
     @Bean
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
-        //TODO 配置过滤器链
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeRequests()

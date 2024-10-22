@@ -1,4 +1,4 @@
-package org.lu.zhaodazi.user.security.provider;
+package org.lu.zhaodazi.security.provider;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -6,7 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.lu.zhaodazi.common.exception.CommonException;
 import org.lu.zhaodazi.common.util.RedisUtil;
 import org.lu.zhaodazi.user.domain.entity.User;
-import org.lu.zhaodazi.user.security.authtication.EmailAuthenticationToken;
+import org.lu.zhaodazi.security.authtication.EmailAuthenticationToken;
 import org.lu.zhaodazi.user.service.UserService;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;

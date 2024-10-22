@@ -1,27 +1,37 @@
 package org.lu.zhaodazi.common.util;
 
+import cn.hutool.extra.spring.SpringUtil;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.interfaces.JWTVerifier;
+import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.lu.zhaodazi.common.ApplicationConfig;
+import org.lu.zhaodazi.common.exception.CommonException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Value;
 import java.util.Date;
 import java.util.Map;
 import java.util.Optional;
-import java.util.logging.Logger;
-
 public class JwtUtil {
 
     /**
      * token秘钥，请勿泄露，请勿随便修改
      */
-    private static String secret= "test";
+    private static String secret;
     private static final String UID_CLAIM = "uid";
     private static final String CREATE_TIME = "createTime";
+
+    static {
+        ApplicationConfig bean = SpringUtil.getBean(ApplicationConfig.class);
+        secret=bean.JWTSecret;
+    }
 
     /**
      * JWT生成Token.<br/>
@@ -52,10 +62,8 @@ public class JwtUtil {
             DecodedJWT jwt = verifier.verify(token);
             return jwt.getClaims();
         } catch (Exception e) {
-            //TODO 静态方法打日志
-            System.out.println("11111");
+            throw new CommonException("token-验证异常-"+token);
         }
-        return null;
     }
 
 

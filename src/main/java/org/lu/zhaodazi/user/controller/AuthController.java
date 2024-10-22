@@ -1,14 +1,13 @@
 package org.lu.zhaodazi.user.controller;
 
 import org.lu.zhaodazi.common.domain.vo.res.ApiResult;
+import org.lu.zhaodazi.common.service.MailService;
 import org.lu.zhaodazi.user.domain.dto.LoginDTO;
 import org.lu.zhaodazi.user.domain.entity.TokenInfo;
-import org.lu.zhaodazi.user.security.authtication.EmailAuthenticationToken;
+import org.lu.zhaodazi.security.authtication.EmailAuthenticationToken;
 import org.lu.zhaodazi.user.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,11 +15,13 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
     @Autowired
     AuthService authService;
-    //TODO 发送验证码接口,模拟发送
+    @Autowired
+    MailService mailService;
     @GetMapping("/emailcode")
     public ApiResult<String> emailCode(String email){
-        String s = authService.sendVerifyCode(email);
-        return ApiResult.success(s);
+        //TODO 异步线程没办法捕获异常，没办法验证有效性
+        mailService.sendVerifyCode(email);
+        return ApiResult.success();
     }
     @PostMapping("/login")
     public ApiResult<?> login(@RequestBody LoginDTO loginDTO){
