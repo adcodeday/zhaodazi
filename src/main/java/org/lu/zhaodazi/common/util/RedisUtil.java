@@ -61,16 +61,16 @@ public class RedisUtil {
      * @param key  键
      * @param time 时间(秒)
      */
-//    public static Integer integerInc(String key, int time, TimeUnit unit) {
-//        RedisScript<Long> redisScript = new DefaultRedisScript<>(LUA_INCR_EXPIRE, Long.class);
-//        Long result = stringRedisTemplate.execute(redisScript, Collections.singletonList(key), String.valueOf(unit.toSeconds(time)));
-//        try {
-//            return Integer.parseInt(result.toString());
-//        } catch (Exception e) {
-//            RedisUtil.del(key);
-//            throw e;
-//        }
-//    }
+    public static Integer integerInc(String key, int time, TimeUnit unit) {
+        RedisScript<Long> redisScript = new DefaultRedisScript<>(LUA_INCR_EXPIRE, Long.class);
+        Long result = stringRedisTemplate.execute(redisScript, Collections.singletonList(key), String.valueOf(unit.toSeconds(time)));
+        try {
+            return Integer.parseInt(result.toString());
+        } catch (Exception e) {
+            RedisUtil.del(key);
+            throw e;
+        }
+    }
 
     /**
      * 指定缓存失效时间

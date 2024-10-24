@@ -1,6 +1,6 @@
-package org.lu.zhaodazi.security.config;
+package org.lu.zhaodazi.auth.config;
 
-import org.lu.zhaodazi.security.provider.EmailAuthenticationProvider;
+import org.lu.zhaodazi.auth.provider.EmailAuthenticationProvider;
 import org.lu.zhaodazi.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
