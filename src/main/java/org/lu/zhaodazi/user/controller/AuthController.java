@@ -39,7 +39,7 @@ public class AuthController {
 //            case WX:
 //                WxAuthenticationToken wxAuthenticationToken=new WxAuthenticationToken();
 //                tokenInfo = authService.login(wxAuthenticationToken);
-//                break;;
+//                break;
             default:
                 throw new UnsupportedOperationException("不支持的登录方式:" + loginDTO.getLoginType());
         }

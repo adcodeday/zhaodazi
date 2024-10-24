@@ -8,7 +8,9 @@ import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Collection;
 public class WxAuthenticationToken extends AbstractAuthenticationToken {
+    //openid
     private Object principal;
+    //logincode
     private Object credentials;
     public WxAuthenticationToken(Object principal,Object credentials){
         super(null);
@@ -34,7 +36,7 @@ public class WxAuthenticationToken extends AbstractAuthenticationToken {
         return principal;
     }
 
-    public static WxAuthenticationToken unauthenticated(String principal, String credentials) {
+    public static WxAuthenticationToken unauthenticated(String principal, Integer credentials) {
         return new WxAuthenticationToken(principal, credentials);
     }
 

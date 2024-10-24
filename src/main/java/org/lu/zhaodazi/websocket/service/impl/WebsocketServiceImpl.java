@@ -5,12 +5,15 @@ import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import io.netty.channel.Channel;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
+import org.lu.zhaodazi.auth.authtication.WxAuthenticationToken;
 import org.lu.zhaodazi.common.constant.RedisKey;
 import org.lu.zhaodazi.common.util.RedisUtil;
+import org.lu.zhaodazi.websocket.domain.WSBaseResp;
 import org.lu.zhaodazi.websocket.service.WebsocketService;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 @Service
 public class WebsocketServiceImpl implements WebsocketService {
@@ -44,11 +47,34 @@ public class WebsocketServiceImpl implements WebsocketService {
     @Override
     public void handleLoginReq(Channel channel) {
         Integer code = generateLoginCode(channel);
-        sendMsg(channel, code);
+
+        sendMsg(channel, new WSBaseResp<>(1,code));
     }
 
-    private <T> void sendMsg(Channel channel, T object) {
-        channel.writeAndFlush(new TextWebSocketFrame(JSONUtil.toJsonStr(object)));
+
+    @Override
+    public boolean exist(Integer code) {
+        Channel channel = WAIT_LOGIN_MAP.getIfPresent(code);
+        if (!Objects.isNull(channel)) {
+            return Boolean.TRUE;
+        }
+        return Boolean.FALSE;
+    }
+
+    @Override
+    public boolean loginSuccess(WxAuthenticationToken authenticated, Integer code) {
+        Channel channel = WAIT_LOGIN_MAP.getIfPresent(code);
+        if (Objects.isNull(channel)) {
+            return Boolean.FALSE;
+        }
+        channel.writeAndFlush(authenticated);
+        WAIT_LOGIN_MAP.invalidate(code);
+        return Boolean.TRUE;
+
+    }
+
+    private <T> void sendMsg(Channel channel, WSBaseResp<T> res) {
+        channel.writeAndFlush(new TextWebSocketFrame(JSONUtil.toJsonStr(res)));
     }
 
     private Integer generateLoginCode(Channel channel) {

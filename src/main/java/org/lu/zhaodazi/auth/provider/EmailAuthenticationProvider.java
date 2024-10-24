@@ -8,6 +8,7 @@ import org.lu.zhaodazi.common.util.RedisUtil;
 import org.lu.zhaodazi.user.domain.entity.User;
 import org.lu.zhaodazi.auth.authtication.EmailAuthenticationToken;
 import org.lu.zhaodazi.user.service.UserService;
+import org.lu.zhaodazi.user.util.UserUtil;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -40,9 +41,9 @@ public class EmailAuthenticationProvider implements AuthenticationProvider {
 //        if(!RedisUtil.deleteIfExists(email)){
 //            throw new CommonException(3,"邮箱登录-并发错误-"+email+"-");
 //        }
-        EmailAuthenticationToken authenticated = EmailAuthenticationToken.authenticated(user,
+        EmailAuthenticationToken authenticated = EmailAuthenticationToken.authenticated(UserUtil.clearUserInfo(user),
                 null,
-                user.getAuthorities());
+                null);
 
         authenticated.setDetails(authentication.getDetails());
         log.info("邮箱登录-成功-uid:"+user.getId());

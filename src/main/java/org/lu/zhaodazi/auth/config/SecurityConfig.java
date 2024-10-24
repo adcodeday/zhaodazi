@@ -1,7 +1,10 @@
 package org.lu.zhaodazi.auth.config;
 
 import org.lu.zhaodazi.auth.provider.EmailAuthenticationProvider;
+import org.lu.zhaodazi.auth.provider.WxAuthenticationProvider;
+import org.lu.zhaodazi.user.service.TokenService;
 import org.lu.zhaodazi.user.service.UserService;
+import org.lu.zhaodazi.websocket.service.WebsocketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,6 +27,10 @@ import java.util.List;
 public class SecurityConfig {
     @Autowired
     UserService userService;
+    @Autowired
+    WebsocketService websocketService;
+    @Autowired
+    TokenService tokenService;
     @Bean
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -41,6 +48,10 @@ public class SecurityConfig {
     @Bean
     public EmailAuthenticationProvider emailAuthenticationProvider() {
         return new EmailAuthenticationProvider(userService);
+    }
+    @Bean
+    public WxAuthenticationProvider wxAuthenticationProvider(){
+        return new WxAuthenticationProvider(websocketService,userService,tokenService);
     }
     @Bean
     public PasswordEncoder passwordEncoder(){

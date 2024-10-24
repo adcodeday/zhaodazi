@@ -36,22 +36,24 @@ public class AuthServiceImpl implements AuthService {
         if ((authenticate = SecurityContextHolder.getContext().getAuthentication()) == null || authenticate instanceof AnonymousAuthenticationToken) {
             authenticate = authenticationManager.authenticate(authenticationToken);
         }
+        if(authenticate==null){
+            //登录失败
+            return null;
+        }
         User user = (User)authenticate.getPrincipal();
         TokenInfo tokenInfo = tokenService.generate(user);
-        log.info("存入缓存："+user.getId());
-        RedisUtil.set("USER_"+user.getId(),user,3600);
         return tokenInfo;
     }
 
-    public static String generateRandomNumber(int length) {
-        Random random = new Random();
-        StringBuilder sb = new StringBuilder();
-
-        for (int i = 0; i < length; i++) {
-            sb.append(random.nextInt(10)); // 生成0到9之间的随机数并追加到字符串
-        }
-
-        return sb.toString();
-    }
+//    public static String generateRandomNumber(int length) {
+//        Random random = new Random();
+//        StringBuilder sb = new StringBuilder();
+//
+//        for (int i = 0; i < length; i++) {
+//            sb.append(random.nextInt(10)); // 生成0到9之间的随机数并追加到字符串
+//        }
+//
+//        return sb.toString();
+//    }
 }
 

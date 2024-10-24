@@ -65,7 +65,7 @@ public class NettyWebsocketServer {
         serverBootstrap.group(bossGroup, workerGroup)
                 .channel(NioServerSocketChannel.class)
                 .option(ChannelOption.SO_BACKLOG, 128)
-                .option(ChannelOption.SO_KEEPALIVE, true)
+//                .option(ChannelOption.SO_KEEPALIVE, true)
                 .handler(new LoggingHandler(LogLevel.INFO)) // 为 bossGroup 添加日志处理器
                 .childHandler(new ChannelInitializer<SocketChannel>() {
                     @Override

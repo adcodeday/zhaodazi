@@ -7,7 +7,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 @Mapper
 public interface UserMapper {
-    User loadUserByUsername(String username);
+    @Select("select id from user where open_id=#{open_id}")
+    User loadUserByOpenId(String openId);
     @Select("select id,email from user where email=#{email}")
     User loadUserByEmail(String email);
 }

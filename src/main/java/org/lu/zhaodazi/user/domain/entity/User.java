@@ -18,6 +18,8 @@ public class User implements UserDetails {
 
     private String email;
 
+    private String openId;
+
     private boolean enabled;
 
     private Collection<GrantedAuthority> authorities;
