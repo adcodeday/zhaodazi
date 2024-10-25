@@ -20,32 +20,15 @@ public class WxController {
     WebsocketService websocketService;
     @Autowired
     AuthService authService;
-
-
-    /**
-     * 微信的公众号接入 token 验证，即返回echostr的参数值
-     *
-     * @param request
-     * @return
-     */
     @GetMapping(path = "/callback")
     @ResponseBody
     public String check(HttpServletRequest request) {
-        String echoStr = request.getParameter("echostr");
+        String echoStr = request.getParameter("echoStr");
         if (StringUtils.isNoneEmpty(echoStr)) {
             return echoStr;
         }
         return "";
     }
-
-    /**
-     * fixme: 需要做防刷校验
-     * 微信的响应返回
-     * 本地测试访问: curl -X POST 'http://localhost:8080/wx/callback' -H 'content-type:application/xml' -d '<xml><URL><![CDATA[https://hhui.top]]></URL><ToUserName><![CDATA[一灰灰blog]]></ToUserName><FromUserName><![CDATA[demoUser1234]]></FromUserName><CreateTime>1655700579</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[login]]></Content><MsgId>11111111</MsgId></xml>' -i
-     *
-     * @param msg
-     * @return
-     */
     @PostMapping(path = "/callback",
             consumes = {"application/xml", "text/xml"},
             produces = "application/xml;charset=utf-8")
